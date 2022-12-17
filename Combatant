@@ -1,0 +1,20 @@
+public abstract class Combatant{
+    public int hp;//points de vie, points d'attack, ditance
+    public static int weapon;
+    public int dist;
+
+    public Combatant(int hp, int weapon){//constructeur
+        this.hp=hp;
+        this.weapon=weapon;
+
+    }
+    public Integer getHp(){
+        return hp;
+    }
+    public void setHp(int newHp){
+        this.hp=newHp;
+    }
+        public Integer getWeapon(){
+        return weapon;
+    }
+}
