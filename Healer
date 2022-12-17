@@ -1,0 +1,12 @@
+public class Healer extends SpellCaster{
+
+    public Healer() {
+        super(70, 10, 3, 2, 10,3);
+    }
+    public void heal(int mana, int hp){
+        if (mana>=3){
+            hp+=20;
+            mana-=3;
+        } 
+    }
+}
