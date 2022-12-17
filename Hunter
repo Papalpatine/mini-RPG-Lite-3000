@@ -1,0 +1,14 @@
+public class Hunter extends Hero{
+    public static int arrows;
+    
+    public Hunter(){
+        super(90,5,3,4);
+        this.arrows=10;//le chasseur a 10 flèches
+    }
+    public static void attack(Enemy ennemiAttacked){
+        if (arrows!=0){
+            ennemiAttacked.setHp(ennemiAttacked.getHp()-weapon);
+            arrows-=1;
+        }
+    }
+}
