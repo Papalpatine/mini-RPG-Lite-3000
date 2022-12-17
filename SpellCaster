@@ -1,0 +1,14 @@
+public class SpellCaster extends Hero{
+    public int mana;
+    public int potion;
+    
+    public SpellCaster(int hp, int weapon, int lembas, int armor, int mana, int potions){
+        super( hp, weapon, 3, armor);
+        this.mana=10;
+        this.potion=3;//Les possédeurs de magie possèdent initialement 10 points de mana 
+    }
+    public void drink(int mana,int potion){
+        mana+=5;
+        potion-=1;
+    }
+}
