@@ -1,0 +1,58 @@
+import java.util.Scanner;
+
+public class Hero extends Combatant{
+
+    public static int maxHp;//pv maximum pour les héros, nombre de lembas et les points d'armure
+    public static int lembas;
+    public static int armor;
+
+    public Hero(int hp, int weapon,int lembas, int armor) {
+        super(hp,weapon);
+        this.lembas=3;//tous les héros débutent avec 3 lembas
+        this.armor=armor;
+    }
+    public void eat(int hp, int lembas){
+        hp+=20;
+        lembas-=1;
+    }
+    public void defend(int armor){
+        armor+=1;
+    }
+    public void chooseUpgrades(){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Choisissez une amélioration");
+        System.out.println("[1] Dégats : amélioration des dégats infligés par 10");
+        System.out.println("[2] Resistance : amélioration de la défence par 10");
+        System.out.println("[3] Effet Consumables : amélioration l'effet des potions et de la nourriture par 10");
+        System.out.println("[4] Quantité Potion : augmente le nombre de potions par 2");
+        System.out.println("[5] Flèches : rajoute 10 flèches");
+        System.out.println("[6] Mana : augmente la quantité de mana par 10");
+        System.out.println("[7] Effet Sorts : amélioration des dégats des sorts ou la l'effet des guérisons");
+        int numUpgrades=sc.nextInt();
+        if (numUpgrades==1){
+            System.out.println("Vous allez améliorer les dégats");
+            weapon+=10;
+        }else if (numUpgrades==2){
+            System.out.println("Vous allez améliorer la résistance");
+            armor+=5;
+        }else if (numUpgrades==3){
+            System.out.println("Vous allez améliorer les effets des consumables");
+        }else if (numUpgrades==4){
+            System.out.println("Vous allez améliorer la quantité des potions");
+        }else if (numUpgrades==5){
+            System.out.println("Vous allez améliorer la quantité de flèches");
+        }else if (numUpgrades==6){
+            System.out.println("Vous allez améliorer le mana");
+        }else if (numUpgrades==7){
+            System.out.println("Vous allez améliorer les sorts");
+        }else{
+            chooseUpgrades();
+        }
+    }
+    public Integer getLembas(){
+        return lembas;
+    }
+    public Integer getArmor(){
+        return armor;
+    }
+}
