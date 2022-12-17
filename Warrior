@@ -1,0 +1,11 @@
+public class Warrior extends Hero{
+    
+    public Warrior(){
+        super( 100, 10, 3, 5);
+        this.armor=5;//Le guerrier a une armure de 5 points
+    }
+    public void attack(int hp){
+        hp=hp-weapon;
+    }
+
+}
