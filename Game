@@ -1,0 +1,120 @@
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Game {
+
+    static Scanner scanner=new Scanner(System.in);
+
+    public static int choix;
+    public static String classe;
+
+    public static void start(){//commencer une partie
+        Hunter hunter=null;
+        Warrior warrior=null;
+        Mage mage=null;
+        Healer healer=null;
+        System.out.println(" ");
+        System.out.println("Bienvenu dans mini RPG Lite 3000 !");
+        Scanner sc = new Scanner(System.in);
+        /*création des personnages */
+        System.out.println("Vous pouvez choisir entre 1 et 4 joueurs, combien êtes-vous ?");
+        int numberOfPlayers=sc.nextInt();
+        while (numberOfPlayers>=5||numberOfPlayers<1){
+            System.out.println("Désolé, le nombre n'est pas valide. Veuillez entrer un nombre entre 1 et 4");
+            numberOfPlayers=sc.nextInt();
+        }
+        ArrayList<Hero> players=new ArrayList<Hero>();
+        ArrayList<Enemy> enemies=new ArrayList<Enemy>();
+
+        Map<Integer,String> classeAvailable=new HashMap<>();
+        classeAvailable.put(1,"Chasseur");
+        classeAvailable.put(2,"Guerrier");
+        classeAvailable.put(3,"Magicien");
+        classeAvailable.put(4,"Prêtre");
+        for (int i=0;i<numberOfPlayers;i++){
+            System.out.println("Joueur "+(i+1)+", quel numéro de classe choisissez-vous ?");
+            System.out.println("--------------------");
+            System.out.println("Les classes disponibles sont : ");//présentation des classes disponibles
+            classeAvailable.forEach((key,value)-> System.out.println("["+key+"] "+value));
+            System.out.println("--------------------");
+            System.out.println(" ");
+            System.out.println(players.size());
+            try{
+                choix=Integer.parseInt(scanner.next());
+                if (classeAvailable.get(choix)==null){
+                    System.out.println("Cette classe n'est pas disponible");
+                    i--;
+                }else{
+                    switch(choix){//on créer les personnages en fonction des classes choisies
+                        case 1:
+                            hunter=new Hunter();
+                            players.add(hunter);
+                            hunter.getHp();
+                            System.out.println("Aucune proie n'échappera à votre arc, Chasseur !");
+                            break;
+                        case 2:
+                            warrior=new Warrior();
+                            players.add(warrior);
+                            warrior.getHp();
+                            System.out.println("La guerre est dans votre sang, Guerrier !");
+                        case 3:
+                            mage=new Mage();
+                            players.add(mage);
+                            mage.getHp();
+                            System.out.println("L'art mystique n'a aucun secret pour vous, Magicien !");
+                        case 4:
+                            healer=new Healer();
+                            players.add(healer);
+                            healer.getHp();
+                            System.out.println("Vraiment ? Prêtre ?");
+                        default: 
+                            System.out.println("pas de classe");
+                            break;    
+                    }
+                    System.out.println("Joueur "+(i+1)+" a choisi "+classeAvailable.get(choix));
+                    classeAvailable.remove(choix);//les classes choisies ne sont plus disponibles
+                }
+            }catch(Exception e){
+                System.out.println(e);
+            }
+        }
+            System.out.println(" ");
+        System.out.println("Le premier combat va commencer !");//début du combat
+        for (int k=0;k<numberOfPlayers;k++){//Présentation des ennemis et de leurs statistiques
+            Enemy enemy=new Enemy(20,8);
+            enemies.add(enemy);
+            System.out.println("["+k+"] Ennemi "+k+" : Points de vie : ");
+        }for (int j=0;j<players.size();j++){//Présentation des héros et de leurs statistiques
+            if (players.get(j) instanceof Hunter){
+                System.out.println("Joueur "+(j+1)+" : Chasseur / Points de vie : "+hunter.getHp()+" / arc : "+hunter.getWeapon()+" / lembas : "+hunter.getLembas()+" / tunique : "+hunter.getArmor());
+            }else if (players.get(j) instanceof Warrior){
+                System.out.println("Joueur "+(j+1)+" : Guerrier / Points de vie : "+warrior.getHp()+" / épée : "+warrior.getWeapon()+" / lembas : "+warrior.getLembas()+" / armure : "+warrior.getArmor());
+            }else if (players.get(j) instanceof Mage){
+                System.out.println("Joueur "+(j+1)+" : Magicien / Points de vie : "+mage.getHp()+" / bâton : "+mage.getWeapon()+" / lembas : "+mage.getLembas()+" / cape : "+mage.getArmor());
+            }else if (players.get(j) instanceof Healer){
+                System.out.println("Joueur "+(j+1)+" : Prêtre / Points de vie : "+healer.getHp()+" / livre : "+healer.getWeapon()+" / lembas : "+healer.getLembas()+" / robe : "+healer.getArmor());
+            }
+        }
+        for (int k=1;k<=numberOfPlayers;k++){//choix d'action
+            System.out.println(" ");
+            System.out.println("Joueur ["+k+"], que voulez-vous faire ?");
+            System.out.println(" ");
+            System.out.println("[1] attaquer");
+            System.out.println("[2] manger");
+            System.out.println("[3] se défendre");
+            int ans=sc.nextInt();
+            if (ans==1){
+                System.out.println("Quel ennemi voulez-vous attaquer ?");//choix d'ennemi à attaquer
+                for (int o=0;o<enemies.size();o++){
+                    System.out.println("["+o+"] Ennemi "+o+" : Points de vie : "+enemies.get(o).getHp());
+                }int ans2=sc.nextInt();
+                    hunter.attack(enemies.get(ans2));
+            }
+        }
+    }
+}
+
+
+
